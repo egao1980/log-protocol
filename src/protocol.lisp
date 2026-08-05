@@ -137,7 +137,7 @@
 
 (defmacro with-context ((&rest fields) &body body)
   `(let ((*log-context* (append *log-context* (list ,@fields))))
-     (%validate-fields *log-context*)
+     (log-protocol::%validate-fields *log-context*)
      ,@body))
 
 (defun %log (level message fields)
