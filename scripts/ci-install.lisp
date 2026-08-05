@@ -29,6 +29,7 @@
      :with '("log-backend-log4cl" "log-backend-vom")
      :sources '(("log4cl" :ql)
                 ("vom" :ql)
+                ("bordeaux-threads" :ql)
                 ("babel" :ql)
                 ("trivial-gray-streams" :ql)
                 ("rove" :ql)))))

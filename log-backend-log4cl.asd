@@ -1,5 +1,5 @@
 (defsystem "log-backend-log4cl"
-  :version "0.1.0"
+  :version "0.1.1"
   :description "log-protocol backend using log4cl dependency"
   :author "egao1980"
   :license "MIT"

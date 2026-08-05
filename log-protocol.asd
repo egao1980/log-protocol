@@ -1,9 +1,9 @@
 (defsystem "log-protocol"
-  :version "0.1.0"
-  :description "Minimal CLOS logging protocol for cl-stack"
+  :version "0.1.1"
+  :description "CLOS logging protocol for cl-stack (level, filters, async; sinks via backends)"
   :author "egao1980"
   :license "MIT"
-  :depends-on ("serdes-protocol")
+  :depends-on ("serdes-protocol" "bordeaux-threads")
   :serial t
   :pathname "src"
   :components ((:file "package")

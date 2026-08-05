@@ -1,5 +1,5 @@
 (defsystem "log-backend-vom"
-  :version "0.1.0"
+  :version "0.1.1"
   :description "log-protocol backend using vom dependency"
   :author "egao1980"
   :license "MIT"

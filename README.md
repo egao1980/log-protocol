@@ -1,49 +1,45 @@
 # log-protocol
 
-Minimal CLOS logging protocol for cl-stack.
+CLOS logging protocol for [cl-stack](https://github.com/egao1980/cl-stack).
+
+**Protocol owns:** level gate, filters, async dispatch, layout (text / structured via serdes).  
+**Backends own:** appenders / sinks / writers (stream, file, log4cl hierarchy, …).
 
 | System | Role |
 |--------|------|
-| `log-protocol` | Logging API, level filtering, text and structured layouts |
-| `log-backend-log4cl` | Default stream backend class with `log4cl` dependency; auto-selects on load |
-| `log-backend-vom` | Alternate stream backend class with `vom` dependency; selected explicitly |
-
-Nick: `stack-log`.
+| `log-protocol` (`stack-log`) | API + level / filters / async |
+| `log-backend-log4cl` | default backend (auto-select) |
+| `log-backend-vom` | alternate (`use-vom-backend`) |
 
 ## Quick use
-
-Text logging:
 
 ```lisp
 (asdf:load-system "log-backend-log4cl")
 (stack-log:configure :level :info :layout :text)
 (stack-log:info "started" :port 8080)
-(stack-log:log-error "failed" :reason "boom")
+
+;; filter
+(stack-log:add-filter (lambda (level logger msg fields)
+                        (declare (ignore level logger fields))
+                        (not (search "password" msg)))
+                      :name :no-secrets)
+
+;; async (protocol mailbox + worker; flush before exit)
+(stack-log:configure :async t)
+(stack-log:info "queued")
+(stack-log:flush)
+(stack-log:shutdown-async)
 ```
 
-Structured logging with `serdes-protocol` and `sexp-protocol`:
+Structured:
 
 ```lisp
 (asdf:load-system "sexp-protocol")
-(asdf:load-system "log-protocol")
-(sexp-protocol:use-sexp-backend)
 (stack-log:configure :layout :structured :format :sexp)
 (stack-log:with-context (:request-id "abc")
   (stack-log:info "handled" :status 200))
 ```
 
-The default structured format is `:json`, but this repository does not ship a JSON backend. Load/register a serdes backend such as json-protocol before using `:json`; tests exercise `:sexp`.
-
-## Local tests
-
-When testing from this workspace, include both sibling repos in ASDF's source registry:
-
-```sh
-CL_SOURCE_REGISTRY="/Users/nikolaimatiushev/Projects/cl-workspace/serdes-protocol//:/Users/nikolaimatiushev/Projects/cl-workspace/log-protocol//:"   ros -e '(ql:quickload (quote ("babel" "trivial-gray-streams" "rove")))'       -e '(asdf:test-system "log-protocol")' -q
-```
-
-For backend systems, install `log4cl` and/or `vom` via Quicklisp first. CI scripts use cl-repository-client with QL fallbacks for public dependencies; `serdes-protocol` and `sexp-protocol` are first-party systems and should resolve from the registry once published.
-
 ## License
 
-MIT -- see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
