@@ -3,13 +3,13 @@
 CLOS logging protocol for [cl-stack](https://github.com/egao1980/cl-stack).
 
 **Protocol owns:** level gate, filters, async dispatch, layout (text / structured via serdes).  
-**Backends own:** appenders / sinks / writers (stream, file, log4cl hierarchy, …).
+**Product backends are separate repos.** In-tree: **`stream-log-backend`** (tests / default writer). log4cl / vom live in [`log-backend-log4cl`](https://github.com/egao1980/log-backend-log4cl) and [`log-backend-vom`](https://github.com/egao1980/log-backend-vom).
 
 | System | Role |
 |--------|------|
-| `log-protocol` (`stack-log`) | API + level / filters / async |
-| `log-backend-log4cl` | default backend (auto-select) |
-| `log-backend-vom` | alternate (`use-vom-backend`) |
+| `log-protocol` (`stack-log`) | API + level / filters / async + stream sink |
+| [`log-backend-log4cl`](https://github.com/egao1980/log-backend-log4cl) | default backend (auto-select) |
+| [`log-backend-vom`](https://github.com/egao1980/log-backend-vom) | alternate (`use-vom-backend`) |
 
 ## Quick use
 
