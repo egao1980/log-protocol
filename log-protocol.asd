@@ -4,7 +4,7 @@
   :author "egao1980"
   :license "MIT"
   :depends-on ("serdes-protocol" "bordeaux-threads")
-  :properties (:cl-repo (:ci (:with ("log-backend-log4cl" "log-backend-vom") :sources (("vom" :ql) ("bordeaux-threads" :ql) ("babel" :ql) ("trivial-gray-streams" :ql) ("rove" :ql)))))
+  :properties (:cl-repo (:ci (:with ("log-backend-log4cl" "log-backend-vom"))))
   :serial t
   :pathname "src"
   :components ((:file "package")
