@@ -18,6 +18,7 @@ jobs:
   publish:
     uses: egao1980/cl-repository/.github/workflows/publish-source.yml@main
     with:
+      system: log-protocol
       version: ${{ inputs.version }}
       packager-version: ${{ inputs.packager_version }}
     permissions:

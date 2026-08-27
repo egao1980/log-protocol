@@ -1,5 +1,5 @@
 (defsystem "log-protocol"
-  :version "0.1.1"
+  :version "0.1.2"
   :description "CLOS logging protocol for cl-stack (level, filters, async; sinks via backends)"
   :author "egao1980"
   :license "MIT"
